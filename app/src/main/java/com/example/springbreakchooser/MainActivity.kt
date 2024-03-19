@@ -46,7 +46,8 @@ class MainActivity : AppCompatActivity() {
         "Chiese" to listOf("geo:39.9042,116.4074?z=10", "geo:31.2304,121.4737?z=10"), // Beijing, China; Shanghai, China
         "French" to listOf("geo:48.8566,2.3522?z=10", "geo:46.2044,6.1432?z=10"), // Paris, France; Geneva, Switzerland
         "German" to listOf("geo:52.5200,13.4050?z=10", "geo:49.6116,6.1319?z=10"), // Berlin, Germany; Luxembourg, Luxembourg
-        "Italian" to listOf("geo:41.9028,12.4964?z=10", "geo:45.4642,9.1900?z=10") // Rome, Italy; Milan, Italy
+        "Italian" to listOf("geo:41.9028,12.4964?z=10", "geo:45.4642,9.1900?z=10"), // Rome, Italy; Milan, Italy
+        "Spanish" to listOf("geo:40.4168,-3.7038?z=10", "geo:19.4326,-99.1332?z=10") // Madrid, Spain; Mexico City, Mexico
     )
 
     private val languageGreetingsMap = mapOf(
@@ -55,7 +56,8 @@ class MainActivity : AppCompatActivity() {
         "Chinese" to R.raw.greeting_chinese,
         "French" to R.raw.greeting_french,
         "German" to R.raw.greeting_german,
-        "Italian" to R.raw.greeting_italian
+        "Italian" to R.raw.greeting_italian,
+        "Spanish" to R.raw.greeting_spanish
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -106,6 +108,7 @@ class MainActivity : AppCompatActivity() {
             "French" -> "fr"
             "German" -> "de"
             "Italian" -> "it"
+            "Spanish" -> "es"
             else -> Locale.getDefault().toLanguageTag()
         }
     }
