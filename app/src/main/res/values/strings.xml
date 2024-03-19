@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">SpringBreakChooser</string>
+    <string name="app_title">SPRING BREAK CHOOSER</string>
+    <string name="select_language">Select a Language:</string>
+    <string name="speech_prompt">Speak in your language</string>
+    <string name="speech_not_supported">Speech not supported</string>
+    <string name="confirm_button">Confirm</string>
+    <string name="shake_hint">Shake your phone to choose a vacation spot!</string>
+    <string-array name="languages">
+        <item>English</item>
+        <item>Chinese</item>
+        <item>French</item>
+        <item>German</item>
+        <item>Italian</item>
+    </string-array>
+</resources>
