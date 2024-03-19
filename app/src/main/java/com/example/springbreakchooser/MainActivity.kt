@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
     private val languageLocationsMap = mapOf(
         // Language to geographic location mappings
         "English" to listOf("geo:51.5074,-0.1278?z=10", "geo:-33.8688,151.2093?z=10"), // London, England; Sydney,Australia
-        "Chiese" to listOf("geo:39.9042,116.4074?z=10", "geo:31.2304,121.4737?z=10"), // Beijing, China; Shanghai, China
+        "Chinese" to listOf("geo:39.9042,116.4074?z=10", "geo:31.2304,121.4737?z=10"), // Beijing, China; Shanghai, China
         "French" to listOf("geo:48.8566,2.3522?z=10", "geo:46.2044,6.1432?z=10"), // Paris, France; Geneva, Switzerland
         "German" to listOf("geo:52.5200,13.4050?z=10", "geo:49.6116,6.1319?z=10"), // Berlin, Germany; Luxembourg, Luxembourg
         "Italian" to listOf("geo:41.9028,12.4964?z=10", "geo:45.4642,9.1900?z=10"), // Rome, Italy; Milan, Italy
@@ -79,8 +79,8 @@ class MainActivity : AppCompatActivity() {
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         sensorManager.registerListener(sensorListener, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL)
         acceleration = 10f // Shake threshold acceleration
-        currentAcceleration = SensorManager.GRAVITY_EARTH // Initial current acceleration
-        lastAcceleration = SensorManager.GRAVITY_EARTH // Initial last acceleration
+        currentAcceleration = SensorManager.GRAVITY_EARTH
+        lastAcceleration = SensorManager.GRAVITY_EARTH
     }
 
     // Initiates speech recognition based on selected language
@@ -120,9 +120,7 @@ class MainActivity : AppCompatActivity() {
             val x = sensorEvent.values[0]
             val y = sensorEvent.values[1]
             val z = sensorEvent.values[2]
-            currentAcceleration = currentAcceleration
 
-//            currentAcceleration = sqrt((x * x + y * y + z * z).toDouble()).toFloat()
             currentAcceleration = abs(x) + abs(y) + abs(z)
             val delta: Float = currentAcceleration - lastAcceleration
             acceleration = acceleration * 0.9f + delta
