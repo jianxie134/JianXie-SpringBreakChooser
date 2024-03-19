@@ -17,6 +17,7 @@ import android.media.MediaPlayer
 import android.widget.Button
 import androidx.activity.result.contract.ActivityResultContracts
 import java.util.Locale
+import kotlin.math.abs
 import kotlin.math.sqrt
 
 class MainActivity : AppCompatActivity() {
@@ -115,18 +116,19 @@ class MainActivity : AppCompatActivity() {
 
     // Listener for shake detection
     private val sensorListener: SensorEventListener = object : SensorEventListener {
-        override fun onSensorChanged(event: SensorEvent) {
-            val x = event.values[0]
-            val y = event.values[1]
-            val z = event.values[2]
+        override fun onSensorChanged(sensorEvent: SensorEvent) {
+            val x = sensorEvent.values[0]
+            val y = sensorEvent.values[1]
+            val z = sensorEvent.values[2]
             currentAcceleration = currentAcceleration
 
-            currentAcceleration = sqrt((x * x + y * y + z * z).toDouble()).toFloat()
+//            currentAcceleration = sqrt((x * x + y * y + z * z).toDouble()).toFloat()
+            currentAcceleration = abs(x) + abs(y) + abs(z)
             val delta: Float = currentAcceleration - lastAcceleration
             acceleration = acceleration * 0.9f + delta
 
             // When shake is detected, navigate to the location and play greeting
-            if (acceleration > 12) {
+            if (acceleration > 47) {
                 navigateToLanguageLocation()
                 playLanguageGreeting()
             }
@@ -137,10 +139,14 @@ class MainActivity : AppCompatActivity() {
 
     // Handles navigation to the selected language location
     private fun navigateToLanguageLocation() {
-        val selectedLanguage = languageSelector.selectedItem.toString()
-        val locations = languageLocationsMap[selectedLanguage] ?: return
-        val randomLocationUri = Uri.parse(locations.random())
-        startActivity(Intent(Intent.ACTION_VIEW, randomLocationUri).setPackage("com.google.android.apps.maps"))
+        if (phraseEditText.text.toString().isNotEmpty()) {
+            val selectedLanguage = languageSelector.selectedItem.toString()
+            val locations = languageLocationsMap[selectedLanguage] ?: return
+            val randomLocationUri = Uri.parse(locations.random())
+            startActivity(Intent(Intent.ACTION_VIEW, randomLocationUri).setPackage("com.google.android.apps.maps"))
+        } else {
+            Toast.makeText(this, "Please enter a phrase before shaking the device.", Toast.LENGTH_SHORT).show()
+        }
     }
 
     // Plays the greeting for the selected language
